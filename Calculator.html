@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>简单计算器</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      padding: 20px;
+      /* 防止用户选中按钮中的文字 */
+      user-select: none;
+    }
+
+    #wrapper {
+      width: 320px;
+    }
+
+    #result {
+      height: 100px;
+      border: 1px solid #ddd;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #ac {
+        border-color: rgb(189, 71, 71);
+        background-color: rgb(189, 71, 71);
+    }
+    
+    #getResult {
+        border-color: rgb(137 127 127);
+        background-color: rgb(137 127 127);
+    }
+    
+
+    .row {
+      display: flex;
+      column-count: 3;
+    }
+
+    .row button {
+      padding: 20px;
+      flex: 1;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      background: #eee;
+    }
+    .row .number {
+        background-color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+<div id="wrapper">
+  <div id="result"></div>
+  <div class="row">
+    <button>+</button>
+    <button>-</button>
+    <button id="ac">AC</button>
+  </div>
+  <div class="row">
+    <button>/</button>
+    <button>*</button>
+    <button>.</button>
+  </div>
+  <div class="row">
+    <button class="number">7</button>
+    <button class="number">8</button>
+    <button class="number">9</button>
+  </div>
+  <div class="row">
+    <button class="number">4</button>
+    <button class="number">5</button>
+    <button class="number">6</button>
+  </div>
+  <div class="row">
+    <button class="number">1</button>
+    <button class="number">2</button>
+    <button class="number">3</button>
+  </div>
+  <div class="row">
+    <button>%</button>
+    <button class="number">0</button>
+    <button id="getResult">=</button>
+  </div>
+</div>
+</body>
+<script>
+  // 获取dom
+  let buttonObjs = document.getElementsByTagName("button");
+  let resultObj = document.getElementById("result");
+  let acObj = document.getElementById("ac");
+  let getResultObj = document.getElementById("getResult");
+  //除了AC和=俩个按钮外，绑定点击事件拼接公式字符串
+  for (const buttonObj of buttonObjs) {
+    if (!['AC', '='].includes(buttonObj.innerHTML)) {
+      buttonObj.addEventListener('click', () => {
+        resultObj.innerHTML += buttonObj.innerHTML;
+      })
+    }
+  }
+ //  AC清空计算公式字符串 
+  acObj.addEventListener('click', () => {
+    resultObj.innerHTML = '';
+  })
+   // = 利用JavaScript的eval函数计算并覆盖计算公式字符串
+  getResultObj.addEventListener('click', () => {
+    resultObj.innerHTML = eval(resultObj.innerHTML);
+  })
+</script>
+</html>
